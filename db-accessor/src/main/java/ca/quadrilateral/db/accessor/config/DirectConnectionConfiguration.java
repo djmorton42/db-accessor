@@ -8,55 +8,49 @@ import ca.quadrilateral.db.accessor.provider.DirectConnectionProvider;
 import ca.quadrilateral.db.accessor.provider.IConnectionProvider;
 
 public class DirectConnectionConfiguration implements IConfiguration {
-	final String driver;
-	final String writeableConnectionString;
-	final String readOnlyConnectionString;
-	final ICredentialsProvider credentialsProvider;
-	
-	public DirectConnectionConfiguration(
-	        final String driver, 
-	        final ICredentialsProvider credentialsProvider, 
-	        final String writeableConnectionString) {
-		this(driver, credentialsProvider, writeableConnectionString, null);
-	}
-	
-	public DirectConnectionConfiguration(
-			final String driver, 
-			final ICredentialsProvider credentialsProvider,
-			final String writeableConnectionString, 
-			final String readOnlyConnectionString) {
-		
-		this.driver = driver;
-		this.credentialsProvider = credentialsProvider;
-		this.writeableConnectionString = writeableConnectionString;
-		this.readOnlyConnectionString = readOnlyConnectionString;
+    final String driver;
+    final String writeableConnectionString;
+    final String readOnlyConnectionString;
+    final ICredentialsProvider credentialsProvider;
 
-		if (this.driver == null) {
-			throw new ConfigurationException("driver property is requird in Direct Connection Configuration");
-		}
-		if (this.writeableConnectionString == null) {
-			throw new ConfigurationException("writeableConnectionString is required in Direct Connection Configuration");
-		}
-		if (this.credentialsProvider == null) {
-		    throw new ConfigurationException("credentialsProvider is required");
-		}
-	}
-	
-	public static DirectConnectionConfiguration forProperties(final Properties properties) {
-		final ICredentialsProvider credentialsProvider = DirectConnectionCredentialsProvider.forProperties(properties);
-		
-		return new DirectConnectionConfiguration(
-				properties.getProperty("driver"),
-				credentialsProvider,
-				properties.getProperty("writeable-connection-string"),
-				properties.getProperty("readonly-connection-string")
-		);
-	}
-	
-	@Override
-	public IConnectionProvider connectionProvider() {
-		return new DirectConnectionProvider(driver, credentialsProvider, writeableConnectionString, readOnlyConnectionString);
-	}
+    public DirectConnectionConfiguration(final String driver, final ICredentialsProvider credentialsProvider,
+            final String writeableConnectionString) {
+        this(driver, credentialsProvider, writeableConnectionString, null);
+    }
+
+    public DirectConnectionConfiguration(final String driver, final ICredentialsProvider credentialsProvider,
+            final String writeableConnectionString, final String readOnlyConnectionString) {
+
+        this.driver = driver;
+        this.credentialsProvider = credentialsProvider;
+        this.writeableConnectionString = writeableConnectionString;
+        this.readOnlyConnectionString = readOnlyConnectionString;
+
+        if (this.driver == null) {
+            throw new ConfigurationException("driver property is requird in Direct Connection Configuration");
+        }
+        if (this.writeableConnectionString == null) {
+            throw new ConfigurationException(
+                    "writeableConnectionString is required in Direct Connection Configuration");
+        }
+        if (this.credentialsProvider == null) {
+            throw new ConfigurationException("credentialsProvider is required");
+        }
+    }
+
+    public static DirectConnectionConfiguration forProperties(final Properties properties) {
+        final ICredentialsProvider credentialsProvider = DirectConnectionCredentialsProvider.forProperties(properties);
+
+        return new DirectConnectionConfiguration(properties.getProperty("driver"), credentialsProvider,
+                properties.getProperty("writeable-connection-string"),
+                properties.getProperty("readonly-connection-string"));
+    }
+
+    @Override
+    public IConnectionProvider connectionProvider() {
+        return new DirectConnectionProvider(driver, credentialsProvider, writeableConnectionString,
+                readOnlyConnectionString);
+    }
 
     @Override
     public int hashCode() {
@@ -80,9 +74,9 @@ public class DirectConnectionConfiguration implements IConfiguration {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
-        final DirectConnectionConfiguration other = (DirectConnectionConfiguration)obj;
-        
+
+        final DirectConnectionConfiguration other = (DirectConnectionConfiguration) obj;
+
         if (credentialsProvider == null) {
             if (other.credentialsProvider != null) {
                 return false;
@@ -90,7 +84,7 @@ public class DirectConnectionConfiguration implements IConfiguration {
         } else if (!credentialsProvider.equals(other.credentialsProvider)) {
             return false;
         }
-        
+
         if (driver == null) {
             if (other.driver != null) {
                 return false;
@@ -98,7 +92,7 @@ public class DirectConnectionConfiguration implements IConfiguration {
         } else if (!driver.equals(other.driver)) {
             return false;
         }
-        
+
         if (readOnlyConnectionString == null) {
             if (other.readOnlyConnectionString != null) {
                 return false;
@@ -106,7 +100,7 @@ public class DirectConnectionConfiguration implements IConfiguration {
         } else if (!readOnlyConnectionString.equals(other.readOnlyConnectionString)) {
             return false;
         }
-        
+
         if (writeableConnectionString == null) {
             if (other.writeableConnectionString != null) {
                 return false;
@@ -114,7 +108,7 @@ public class DirectConnectionConfiguration implements IConfiguration {
         } else if (!writeableConnectionString.equals(other.writeableConnectionString)) {
             return false;
         }
-        
+
         return true;
     }
 }

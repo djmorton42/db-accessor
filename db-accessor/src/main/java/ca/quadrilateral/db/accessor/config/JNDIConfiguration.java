@@ -6,23 +6,23 @@ import ca.quadrilateral.db.accessor.provider.IConnectionProvider;
 import ca.quadrilateral.db.accessor.provider.JNDIConnectionProvider;
 
 public class JNDIConfiguration implements IConfiguration {
-	final String writeableContextName;
-	final String readOnlyContextName;
-	
-	public JNDIConfiguration(final String writeableContextName) {
-		this(writeableContextName, null);
-	}
-	
-	public JNDIConfiguration(final String writeableContextName, final String readOnlyContextName) {
-		this.writeableContextName = writeableContextName;
-		this.readOnlyContextName = readOnlyContextName;
-		
-		if (this.writeableContextName == null) {
-			throw new ConfigurationException("writeableContextName is required in JNDI Configuration.");
-		}
-	}
-	
-	@Override
+    final String writeableContextName;
+    final String readOnlyContextName;
+
+    public JNDIConfiguration(final String writeableContextName) {
+        this(writeableContextName, null);
+    }
+
+    public JNDIConfiguration(final String writeableContextName, final String readOnlyContextName) {
+        this.writeableContextName = writeableContextName;
+        this.readOnlyContextName = readOnlyContextName;
+
+        if (this.writeableContextName == null) {
+            throw new ConfigurationException("writeableContextName is required in JNDI Configuration.");
+        }
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -42,9 +42,9 @@ public class JNDIConfiguration implements IConfiguration {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
-        final JNDIConfiguration other = (JNDIConfiguration)obj;
-        
+
+        final JNDIConfiguration other = (JNDIConfiguration) obj;
+
         if (readOnlyContextName == null) {
             if (other.readOnlyContextName != null) {
                 return false;
@@ -52,7 +52,7 @@ public class JNDIConfiguration implements IConfiguration {
         } else if (!readOnlyContextName.equals(other.readOnlyContextName)) {
             return false;
         }
-        
+
         if (writeableContextName == null) {
             if (other.writeableContextName != null) {
                 return false;
@@ -60,20 +60,20 @@ public class JNDIConfiguration implements IConfiguration {
         } else if (!writeableContextName.equals(other.writeableContextName)) {
             return false;
         }
-        
+
         return true;
     }
 
     public static JNDIConfiguration forProperties(final Properties properties) {
-		final String writeablePath = properties.getProperty("writeable-jndi-path");
-		final String readOnlyPath = properties.getProperty("readonly-jndi-path");
-		
-		return new JNDIConfiguration(writeablePath, readOnlyPath);
-	}
-	
-	@Override
-	public IConnectionProvider connectionProvider() {
-		return new JNDIConnectionProvider(writeableContextName, readOnlyContextName);
-	}
+        final String writeablePath = properties.getProperty("writeable-jndi-path");
+        final String readOnlyPath = properties.getProperty("readonly-jndi-path");
+
+        return new JNDIConfiguration(writeablePath, readOnlyPath);
+    }
+
+    @Override
+    public IConnectionProvider connectionProvider() {
+        return new JNDIConnectionProvider(writeableContextName, readOnlyContextName);
+    }
 
 }

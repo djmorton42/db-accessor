@@ -1,26 +1,25 @@
 package ca.quadrilateral.db.accessor.config.credentials;
 
 public class DirectConnectionSystemPropertyCredentialsProvider implements ICredentialsProvider {
-	private final String usernameSystemProperty;
-	private final String passwordSystemProperty;
-	
-	public DirectConnectionSystemPropertyCredentialsProvider(
-		final String usernameSystemProperty,
-		final String passwordSystemProperty
-			) {
-		this.usernameSystemProperty = usernameSystemProperty;
-		this.passwordSystemProperty = passwordSystemProperty;
-	}
-	
-	@Override
-	public String getUsername() {
-	    return System.getProperty(usernameSystemProperty);
-	}
-	    
-	@Override
-	public String getPassword() {
-	    return System.getProperty(passwordSystemProperty);
-	}
+    private final String usernameSystemProperty;
+    private final String passwordSystemProperty;
+
+    public DirectConnectionSystemPropertyCredentialsProvider(
+            final String usernameSystemProperty,
+            final String passwordSystemProperty) {
+        this.usernameSystemProperty = usernameSystemProperty;
+        this.passwordSystemProperty = passwordSystemProperty;
+    }
+
+    @Override
+    public String getUsername() {
+        return System.getProperty(usernameSystemProperty);
+    }
+
+    @Override
+    public String getPassword() {
+        return System.getProperty(passwordSystemProperty);
+    }
 
     @Override
     public int hashCode() {
@@ -42,10 +41,10 @@ public class DirectConnectionSystemPropertyCredentialsProvider implements ICrede
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         final DirectConnectionSystemPropertyCredentialsProvider other = 
                 (DirectConnectionSystemPropertyCredentialsProvider)obj;
-        
+
         if (passwordSystemProperty == null) {
             if (other.passwordSystemProperty != null) {
                 return false;
@@ -53,7 +52,7 @@ public class DirectConnectionSystemPropertyCredentialsProvider implements ICrede
         } else if (!passwordSystemProperty.equals(other.passwordSystemProperty)) {
             return false;
         }
-        
+
         if (usernameSystemProperty == null) {
             if (other.usernameSystemProperty != null) {
                 return false;
@@ -61,7 +60,7 @@ public class DirectConnectionSystemPropertyCredentialsProvider implements ICrede
         } else if (!usernameSystemProperty.equals(other.usernameSystemProperty)) {
             return false;
         }
-        
+
         return true;
     }
 }

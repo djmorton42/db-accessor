@@ -1,26 +1,25 @@
 package ca.quadrilateral.db.accessor.config.credentials;
 
 public class DirectConnectionEnvironmentVariableCredentialsProvider implements ICredentialsProvider {
-	private final String usernameVariableName;
-	private final String passwordVariableName;
-	
-	public DirectConnectionEnvironmentVariableCredentialsProvider(
-			final String usernameVariableName,
-			final String passwordVariableName
-	) {
-		this.usernameVariableName = usernameVariableName;
-		this.passwordVariableName = passwordVariableName;
-	}
-	
-	@Override
-	public String getUsername() {
-		return System.getenv(usernameVariableName);
-	}
-	
-	@Override
-	public String getPassword() {
-		return System.getenv(passwordVariableName);
-	}
+    private final String usernameVariableName;
+    private final String passwordVariableName;
+
+    public DirectConnectionEnvironmentVariableCredentialsProvider(
+            final String usernameVariableName,
+            final String passwordVariableName) {
+        this.usernameVariableName = usernameVariableName;
+        this.passwordVariableName = passwordVariableName;
+    }
+
+    @Override
+    public String getUsername() {
+        return System.getenv(usernameVariableName);
+    }
+
+    @Override
+    public String getPassword() {
+        return System.getenv(passwordVariableName);
+    }
 
     @Override
     public int hashCode() {
@@ -42,10 +41,10 @@ public class DirectConnectionEnvironmentVariableCredentialsProvider implements I
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         final DirectConnectionEnvironmentVariableCredentialsProvider other = 
                 (DirectConnectionEnvironmentVariableCredentialsProvider)obj;
-        
+
         if (passwordVariableName == null) {
             if (other.passwordVariableName != null) {
                 return false;
@@ -53,7 +52,7 @@ public class DirectConnectionEnvironmentVariableCredentialsProvider implements I
         } else if (!passwordVariableName.equals(other.passwordVariableName)) {
             return false;
         }
-        
+
         if (usernameVariableName == null) {
             if (other.usernameVariableName != null) {
                 return false;
@@ -61,7 +60,7 @@ public class DirectConnectionEnvironmentVariableCredentialsProvider implements I
         } else if (!usernameVariableName.equals(other.usernameVariableName)) {
             return false;
         }
-        
+
         return true;
     }
 }

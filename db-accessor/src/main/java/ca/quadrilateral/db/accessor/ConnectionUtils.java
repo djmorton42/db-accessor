@@ -7,13 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ConnectionUtils {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionUtils.class);
-	public enum CompleteAction {
-		COMMIT,
-		COMMIT_ROLLBACK_ON_ERROR,
-		ROLLBACK
-	}
-	
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionUtils.class);
+
+    public enum CompleteAction {
+        COMMIT, COMMIT_ROLLBACK_ON_ERROR, ROLLBACK
+    }
+
     public static void closeResources(final AutoCloseable... resources) {
         for (final AutoCloseable resource : resources) {
             if (resource != null) {
@@ -27,9 +26,9 @@ public class ConnectionUtils {
     }
 
     public static void completeTransaction(final Connection connection, final CompleteAction completeAction) {
-        final boolean commit = 
-                completeAction == CompleteAction.COMMIT || completeAction == CompleteAction.COMMIT_ROLLBACK_ON_ERROR;
-    	try {
+        final boolean commit = completeAction == CompleteAction.COMMIT
+                || completeAction == CompleteAction.COMMIT_ROLLBACK_ON_ERROR;
+        try {
             if (commit) {
                 connection.commit();
             } else {
@@ -43,9 +42,8 @@ public class ConnectionUtils {
                     LOGGER.warn("Error rolling back transaction", rollbackException);
                 }
             }
-            throw new DatabaseAccessorException(
-                    "Error completing transaction with " + (commit ? "COMMIT" : "ROLLBACK"), e
-            );
+            throw new DatabaseAccessorException("Error completing transaction with " + (commit ? "COMMIT" : "ROLLBACK"),
+                    e);
         }
     }
 
