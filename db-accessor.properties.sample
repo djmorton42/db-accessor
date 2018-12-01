@@ -1,0 +1,37 @@
+#To use in JNDI mode:
+#Omit readonly-jndi-path if you do not intend to use read only connections
+#
+#mode=JNDI
+#writeable-jndi-path=java:jboss/datasources/some-jboss-datasource
+#readonly-jndi-path=java:jboss/datasources/some-readonly-jboss-datasource
+
+#To use in DIRECT connection mode:
+#Omit readonly-connection-string if you do not intend to use read only connections
+#
+#mode=DIRECT
+#driver=org.postgresql.Driver
+#writeable-connection-string=jdbc:postgresql://localhost:5432/some-database
+#readonly-connection-string=jdbc:postgresql://localhost:5432/some-readonly-database
+
+#If you wish to hard code your credentials, use this policy.
+#This is ONLY recommended for testing.  Do not commit files containing plaintext
+#production credentials to your source control system.
+#
+#credentials-policy=HARD_CODED
+#username=my_actual_username
+#password=my_actual_password
+
+#If you wish to specify your database username and password using environment variables
+#use this policy.
+#
+#credentials-policy=ENVIRONMENT_VARIABLE
+#username=ENV_VARIABLE_FOR_USERNAME
+#password=ENV_VARIABLE_FOR_PASSWORD
+
+#If you wish to specify your database username and password using Java system properties
+#(eg. -Dmyprogram.username=myusername -Dmyprogram.password=mypassword) use this policy.
+#
+#credentials-policy=SYSTEM_PROPERTY
+#username=myprogram.username
+#password=myprogram.password
+
