@@ -7,7 +7,7 @@ import ca.quadrilateral.db.accessor.config.Configuration;
 import ca.quadrilateral.db.accessor.config.IConfiguration;
 import ca.quadrilateral.db.accessor.provider.IConnectionProvider;
 
-public class DBAccessor {
+public abstract class DBAccessor {
     private static final ConcurrentMap<IConfiguration, IConnectionProvider> connectionProviderMap = 
             new ConcurrentHashMap<>();
     
